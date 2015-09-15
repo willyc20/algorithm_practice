@@ -21,7 +21,7 @@ def main():
     t = []
 
     for i in range(0, 6):
-        s.append(Swag(0, 0))
+        s.append(Swag(0, 0, 0))
 
     #mc = Camera(0, 0)
 
