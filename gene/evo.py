@@ -1,7 +1,7 @@
 from game import *
 from train import *
 
-RandomPlayer = True
+RandomPlayer = False
 
 def main():
 
