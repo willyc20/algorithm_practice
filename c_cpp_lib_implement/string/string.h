@@ -48,8 +48,16 @@ int isblank(int ch);
 
 /* return the length of a given string */
 size_t strlen(const char *str);
-
-
+/* compares two strings */
+int strcmp(const char *lhs, const char *rhs);
+/* compares a certain amount of characters of two strings */
+int strncmp(const char *lhs, const char *rhs, size_t count);
+/* compares two strings in accordance to the current locale */
+//int strcoll(const char *lhs, const char *rhs);
+/* finds the first occurrence of a character */
+char *strchr(const char *str, int ch);
+/* finds the last occurrence of a character */
+char *strrchr(const char *str, int ch);
 
 // Character array manipulation
 
