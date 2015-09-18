@@ -4,7 +4,7 @@ import random
 
 def sigmoid(s):
     #return 1 / (1 + pow(math.e, s * -2))
-    return math.tanh(-5*s)
+    return math.tanh(s)
 
 class Swag:
 
@@ -103,7 +103,7 @@ class Swag:
                 
         for i in range(0, 5):
             self.hiddencell[i] = sigmoid(self.hiddencell[i])
-            if(abs(self.hiddencell[i]) < 0.3):
+            if(abs(self.hiddencell[i]) < 0.5):
                 self.hiddencell[i] = 0
 
         for i in range(0, 5):
@@ -111,17 +111,22 @@ class Swag:
                 self.hiddencell2[j] += self.cowag[i][j] * self.hiddencell[i]
 
         for i in range(0, 5):
-            if(abs(self.hiddencell2[i]) < 0.3):
+            self.hiddencell2[i] = sigmoid(self.hiddencell2[i])
+            if(abs(self.hiddencell2[i]) < 0.5):
                 self.hiddencell2[i] = 0
 
         for i in range(0, 5):
             for j in range(0, 8):
                 self.outcell[j] += self.howag[i][j] * self.hiddencell2[i]
 
+        #print self.outcell
+
         for i in range(0, 8):
             self.outcell[i] = sigmoid(self.outcell[i])
-            if(abs(self.outcell[i]) < 0.3):
-                self.outcell[i] = 0
+            '''if(abs(self.outcell[i]) < 0.5):
+                self.outcell[i] = 0'''
+
+        #print self.outcell
 
         ri = math.sqrt((p.x - soccer.x) * (p.x - soccer.x) + (p.y - soccer.y) * (p.y - soccer.y))
         if(ri < self.rival):
@@ -139,7 +144,7 @@ def AISort(p, n):
                         p[j+1] = t
 
 def AICopy(p, t, n):
-      for i in range(0, n / 2):
+      for i in range(0, n / 3):
             t.append(p[i])
 
 def AIMutate(p, n, rate):
@@ -162,7 +167,7 @@ def AIMutate(p, n, rate):
         
 
 def AICrossover(p, n, e, rate):
-    for ll in range(n / 2, n):
+    for ll in range(n / 3, n):
         ss = []
         ss.append(p[random.randint(0, n - 1)])
         ss.append(p[random.randint(0, n - 1)])

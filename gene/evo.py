@@ -14,7 +14,7 @@ def main():
     if(RandomPlayer):
         p = Player(1024, random.randint(0, MapHeight), 'R')
     else:
-        p = Player(1024, MapHeight/2, 'R')
+        p = Player(1024, MapHeight/3, 'R')
 
     s = []
 
@@ -106,7 +106,7 @@ def main():
             if(RandomPlayer):
                 p.reset(1024, random.randint(0, MapHeight))
             else:
-                p.reset(1024, MapHeight/2)
+                p.reset(1024, MapHeight/3)
             soccer.reset()
         if(now >= len(s)):
             print
@@ -125,7 +125,7 @@ def main():
             if(RandomPlayer):
                 p.reset(1024, random.randint(0, MapHeight))
             else:
-                p.reset(1024, MapHeight/2)
+                p.reset(1024, MapHeight/3)
             soccer.reset()
             print '-----------------------'
             print

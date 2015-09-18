@@ -133,16 +133,16 @@ class Player:
     def genemove(self, spd, soccer, swag):
         tag = []
         ttag = []
-        if(swag.outcell[0] > 0):
+        if(swag.outcell[0] >= 0.5):
             tag.append('w')
             self.y -= 400 * spd
-        if(swag.outcell[1] > 0):
+        if(swag.outcell[1] >= 0.5):
             tag.append('a')
             self.x -= 400 * spd
-        if(swag.outcell[2] > 0):
+        if(swag.outcell[2] >= 0.5):
             tag.append('s')
             self.y += 400 * spd
-        if(swag.outcell[3] > 0):
+        if(swag.outcell[3] >= 0.5):
             tag.append('d')
             self.x += 400 * spd
         if (self.x > MapWidth):
