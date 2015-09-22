@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "sort_tool.h"
 #define N 100
 
