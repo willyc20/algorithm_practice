@@ -64,9 +64,10 @@ int fabonacci3(int n)
 }
 
 // 數學式解
-// O(1)阿！ 這才是真正的最猛解
 // 當然一般程式員不會特別去背這種東西就是了
 // 純記憶的東西還是交給google吧
+// 之前直覺以為這樣是O(1)
+// 我錯了是O(n)才對 n次方 恩
 int fabonacci4(int n)
 {
   double a = (1 + sqrt(5)) / 2;
