@@ -4,7 +4,7 @@
 #define MAXN 100
 #define MAXFILTER 1000000000LL
 using namespace std;
-void radixsort(int *arr){
+void radixsort(int *arr){// for positive int
 	int temp[MAXN][MAXN]={};
 	int index[MAXN]={0};
 	int n=1;
