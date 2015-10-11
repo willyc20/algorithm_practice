@@ -51,14 +51,14 @@ void search(node * node, int tar){
 }
 int main(){
 	int t,n,d;
-	scanf("%d",&n);
+	scanf("%d",&n);//size of in put
 	scanf("%d",&d);
 	node* root=new_node(d,0);
 	for(int i=1;i<n;i++){
 		scanf("%d",&d);
 		insert(root,d,i);
 	}
-	scanf("%d",&t);
+	scanf("%d",&t);//times of search
 	while(t--){
 		scanf("%d",&d);
 		search(root,d);
