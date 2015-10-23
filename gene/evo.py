@@ -3,25 +3,36 @@ from train import *
 
 RandomPlayer = False
 
+Size = 6
+
 def main():
 
     counter = Counter()
 
     R = roller()
 
-    soccer = Ball(MapWidth / 2, MapHeight / 2)
+    #soccer = Ball(MapWidth / 2, MapHeight / 2)
 
-    if(RandomPlayer):
+    p = []
+
+    '''if(RandomPlayer):
         p = Player(1024, random.randint(0, MapHeight), 'R')
     else:
-        p = Player(1024, MapHeight/3, 'R')
+        p = Player(1024, MapHeight/3, 'R')'''
 
     s = []
 
+    b = []
+
     t = []
 
-    for i in range(0, 6):
+    live = []
+
+    for i in range(0, Size):
         s.append(Swag(0, 0, 0))
+        b.append(Ball(MapWidth / 2, MapHeight / 2))
+        p.append(Player(1024, MapHeight/3, 'R'))
+        live.append(i)
 
     #mc = Camera(0, 0)
 
@@ -38,7 +49,7 @@ def main():
 
     view = 1
 
-    now = 0
+    #now = 0
 
     rd = 0
 
@@ -52,31 +63,7 @@ def main():
 
         spd = time_passed / 1000.0
 
-        soccer.rolf(spd)
-
-        keys = pygame.key.get_pressed()
-
-        k = []
-
-        if keys[pygame.K_w]:
-            k.append('w')
-        if keys[pygame.K_a]:
-            k.append('a')
-        if keys[pygame.K_s]:
-            k.append('s')
-        if keys[pygame.K_d]:
-            k.append('d')
-
-        if keys[pygame.K_i]:
-            k.append('i')
-        if keys[pygame.K_j]:
-            k.append('j')
-        if keys[pygame.K_k]:
-            k.append('k')
-        if keys[pygame.K_l]:
-            k.append('l')
-
-        #mc.move(k, spd, R)
+        #soccer.rolf(spd)
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -90,60 +77,62 @@ def main():
         #screen.blit(bg, (R.lx, R.ly))
         screen.blit(bg, (0, 0))
 
-        s[now].comp(p, soccer)
-        num = p.genemove(spd, soccer, s[now])
-        go = soccer.goal(counter)
-        if(go == 59):
-            s[now].rival -= 50
-        elif(go ==60):
-            s[now].rival += 50
-        if(num >= 400):
-            if(num == 400):
-                print s[now].rival, 'out of border'
-            elif(num == 401):
-                print s[now].rival, 'stun'
-            now += 1
-            if(RandomPlayer):
-                p.reset(1024, random.randint(0, MapHeight))
-            else:
-                p.reset(1024, MapHeight/3)
-            soccer.reset()
-        if(now >= len(s)):
+        for now in range(0, Size):
+            if now in live:
+
+                b[now].rolf(spd)
+
+                s[now].comp(p[now], b[now])
+                num = p[now].genemove(spd, b[now], s[now])
+                go = b[now].goal(counter)
+                
+                if(go == 59):
+                    s[now].rival -= 50
+                elif(go ==60):
+                    s[now].rival += 50
+                if now<len(bplis):
+                    p[now].bl(p[now].x - rpimg_height / 2, p[now].y - rpimg_width / 2, bplis[now])
+                else:
+                    p[now].bl(p[now].x - rpimg_height / 2, p[now].y - rpimg_width / 2, bplayer)
+                b[now].bl(b[now].x - bimg_height, b[now].y - bimg_width)
+                
+                if(num >= 400):
+                    b[now].reset()
+                    if(num == 400):
+                        print s[now].rival, 'out of border'
+                    elif(num == 401):
+                        print s[now].rival, 'stun'
+                    if(RandomPlayer):
+                        p[now].reset(1024, random.randint(0, MapHeight))
+                    else:
+                        p[now].reset(1024, MapHeight/3)
+                    live.remove(now)
+            
+        if(len(live)<1):
             print
             print '---prepare next gene---'
             AISort(s, len(s))
             AICopy(s, t, len(s))
-            AICrossover(s, len(s), t, 10)
+            AICrossover(s, len(s), t, 20)
             AIMutate(t, len(s), 90)
             s = t
             for ai in s:
                 ai.rival = 9999
             #s[len(s)-1].reset()
             rd += 1
-            now = 0
+            #now = 0
             t = []
-            if(RandomPlayer):
+            '''if(RandomPlayer):
                 p.reset(1024, random.randint(0, MapHeight))
             else:
-                p.reset(1024, MapHeight/3)
-            soccer.reset()
+                p.reset(1024, MapHeight/3)'''
+            for i in range(0, Size):
+                b[i].reset()
+                p[i].reset(1024, MapHeight/3)
+                live.append(i)
             print '-----------------------'
             print
             print 'Round:', rd
-        '''if(abs(p.x - mc.x) <= ScreenWidth / 2 and abs(p.y - mc.y) <= ScreenHeight / 2):
-            if(p.team == 'R'):
-                p.bl(p.x + R.lx - rpimg_height / 2, p.y + R.ly - rpimg_width / 2, rplayer)
-            else:
-                p.bl(p.x + R.lx - rpimg_height / 2, p.y + R.ly - rpimg_width / 2, bplayer)'''
-        p.bl(p.x - rpimg_height / 2, p.y - rpimg_width / 2, bplayer)
-        '''if(view < 0):
-            mc.x = p.x
-            mc.y = p.y'''
-
-        soccer.bl(soccer.x - bimg_height, soccer.y - bimg_width)
-
-        '''if(abs(soccer.x - mc.x) <= ScreenWidth / 2 and abs(soccer.y - mc.y) <= ScreenHeight / 2):
-            soccer.bl(soccer.x + R.lx - bimg_height / 2, soccer.y + R.ly - bimg_width / 2)'''
             
         text = font.render("FPS:%d" % clock.get_fps(), 1, (0, 0, 255))
         point = font.render("%d:%d" % (counter.BP, counter.RP), 1, (0, 0, 255))

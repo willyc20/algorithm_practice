@@ -32,6 +32,14 @@ Goal_DBorder = 390
 
 rplayer = pygame.image.load('red.png').convert_alpha()
 bplayer = pygame.image.load('blue.png').convert_alpha()
+bplis = []
+bplis.append(pygame.image.load('0.png').convert_alpha())
+bplis.append(pygame.image.load('1.png').convert_alpha())
+bplis.append(pygame.image.load('2.png').convert_alpha())
+bplis.append(pygame.image.load('3.png').convert_alpha())
+bplis.append(pygame.image.load('4.png').convert_alpha())
+bplis.append(pygame.image.load('5.png').convert_alpha())
+
 ball = pygame.image.load('ball.jpg').convert_alpha()
 door = pygame.image.load('door.png').convert_alpha()
 
