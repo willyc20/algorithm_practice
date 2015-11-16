@@ -1,4 +1,4 @@
-// fabonacci數列幾乎是每個學程式的人，在初學遞迴觀念的時候會碰到的。
+// fibonacci數列幾乎是每個學程式的人，在初學遞迴觀念的時候會碰到的。
 // 雖然看起來很簡單，其實包含了很多有趣的東西。
 // *:若出現undefined 'pow' 請加上-lm參數（表示連結至數學函式庫）
 #include <stdio.h>
@@ -12,21 +12,21 @@ int count2 = 0;
 // 最簡單的遞迴實作
 // 其實複雜度高達O(2^(n/2))
 // n = 40就能感覺到效能問題
-int fabonacci1(int n)
+int fibonacci1(int n)
 {
   count1++;
   if (n == 0)
     return 0;
   if (n == 1)
     return 1;
-  return fabonacci1(n - 1) + fabonacci1(n - 2);
+  return fibonacci1(n - 1) + fibonacci1(n - 2);
 }
 
 // 運用了dynamic programming的思路 
 // 複雜度只用O(n)
-// 在n = 40的時候跟fabonacci1的效率相比天差地遠
+// 在n = 40的時候跟fibonacci1的效率相比天差地遠
 int save[100] = {0};
-int fabonacci2(int n)
+int fibonacci2(int n)
 {
   count2++;
   if (n == 0) {
@@ -39,7 +39,7 @@ int fabonacci2(int n)
   }
   if (save[n] != 0)
     return save[n];
-  save[n] = fabonacci2(n - 1) + fabonacci2(n - 2);
+  save[n] = fibonacci2(n - 1) + fibonacci2(n - 2);
   return save[n];
 }
 
@@ -48,7 +48,7 @@ int fabonacci2(int n)
 // 但可以比較出來遞迴解法是比較優雅的
 // 當遇到問題可以拆解成同性質的小問題時
 // 遞迴常常比迭代還要好表達
-int fabonacci3(int n)
+int fibonacci3(int n)
 {
   if (n == 0)
     return 0;
@@ -68,7 +68,7 @@ int fabonacci3(int n)
 // 純記憶的東西還是交給google吧
 // 之前直覺以為這樣是O(1)
 // 我錯了是O(n)才對 n次方 恩
-int fabonacci4(int n)
+int fibonacci4(int n)
 {
   double a = (1 + sqrt(5)) / 2;
   double b = (1 - sqrt(5)) / 2;
@@ -79,23 +79,23 @@ int fabonacci4(int n)
 int main(void)
 {
   printf("簡單遞迴解法\n");
-  printf("result=%d\n", fabonacci1(40));
+  printf("result=%d\n", fibonacci1(40));
   printf("共呼叫%d次\n", count1);
 
   printf("動態規劃解法\n");
-  printf("result=%d\n", fabonacci2(40));
+  printf("result=%d\n", fibonacci2(40));
   printf("共呼叫%d次\n", count2); 
   
   printf("迭代解法\n");
-  printf("result=%d\n", fabonacci3(40));
+  printf("result=%d\n", fibonacci3(40));
   
   printf("數學式解法\n");
-  printf("result=%d\n", fabonacci4(40));
+  printf("result=%d\n", fibonacci4(40));
   
   return 0;
 }
 
-// 一個看似簡單的fabonacci
+// 一個看似簡單的fibonacci
 // 卻能清楚的表達了recursive跟dynamic programming的思想
 // 以及數學式的威力 真的是非常棒的東西
 //
